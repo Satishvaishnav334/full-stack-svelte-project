@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
-import { MONGO_URI } from "$env/static/private"; // load private env vars
+import { MONGODB_URI } from "$env/static/private"; // load private env vars
 
 let conn = null;
 
 export async function connectDB() {
-  if (conn) return conn;
+  // if (conn) return conn;
 
   try {
-    conn = await mongoose.connect(MONGO_URI, {
+    conn = await mongoose.connect(MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
