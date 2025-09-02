@@ -1,7 +1,7 @@
 // @ts-check
 import { json } from "@sveltejs/kit";
 import { connectDB } from "$lib/db.js";
-import { createTask, getTasks } from "$lib/controllers/taskControllers.js";
+import { createTask, getTasks } from "$lib/controllers/tasks/taskControllers.js";
 
 /**
  * @param {import('@sveltejs/kit').RequestEvent} event

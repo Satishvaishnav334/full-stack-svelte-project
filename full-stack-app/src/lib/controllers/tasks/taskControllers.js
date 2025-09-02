@@ -1,7 +1,6 @@
 // @ts-check
-import Task from "../models/task.js";
 import mongoose from "mongoose";
-
+import Task from "$lib/models/task";
 /**
  * Get tasks by projectId
  

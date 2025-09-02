@@ -1,0 +1,35 @@
+/* Reset browser defaults */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Apply a clean base */
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #f9fafb;
+  color: #111827;
+  line-height: 1.5;
+}
+
+/* Reset headings & lists */
+h1, h2, h3, h4, h5, h6, p, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove list styles */
+ul, ol {
+  list-style: none;
+}
+
+/* Links reset */
+a {
+  text-decoration: none;
+  color: inherit;
+}
