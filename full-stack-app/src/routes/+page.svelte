@@ -6,15 +6,16 @@
   let projectId = "replace_with_project_id";
 
   async function loadTasks() {
-    const res = await fetch(`/api/tasks?projectId=${projectId}`);
+    const res = await fetch(`/api/tasks`);
     tasks = await res.json();
+    console.log(tasks)
   }
 
   async function addTask() {
     await fetch("/api/tasks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: newTask, projectId })
+      body: JSON.stringify({ title: newTask })
     });
     newTask = "";
     loadTasks();

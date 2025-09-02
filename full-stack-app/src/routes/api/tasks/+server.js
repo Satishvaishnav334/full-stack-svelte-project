@@ -1,21 +1,28 @@
+// @ts-check
 import { json } from "@sveltejs/kit";
 import { connectDB } from "$lib/db.js";
-import { createTask, getTasks, getTaskStats } from "$lib/controllers/taskController.js";
+import { createTask, getTasks } from "$lib/controllers/taskControllers.js";
 
+/**
+ * @param {import('@sveltejs/kit').RequestEvent} event
+ */
 export async function GET({ url }) {
   await connectDB();
-  const projectId = url.searchParams.get("projectId");
-  const stats = url.searchParams.get("stats");
+  // const projectId = url.searchParams.get("projectId");
+  // const stats = url.searchParams.get("stats");
+  
+  // if (stats) {
+  //   const result = await getTaskStats(projectId);
+  //   return json(result);
+  // }
 
-  if (stats) {
-    const result = await getTaskStats(projectId);
-    return json(result);
-  }
-
-  const tasks = await getTasks(projectId);
+  const tasks = await getTasks();
   return json(tasks);
 }
 
+/**
+ * @param {import('@sveltejs/kit').RequestEvent} event
+ */
 export async function POST({ request }) {
   await connectDB();
   const data = await request.json();

@@ -8,8 +8,7 @@ export async function connectDB() {
 
   try {
     conn = await mongoose.connect(MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
+    
     });
     console.log("✅ MongoDB connected");
     return conn;
