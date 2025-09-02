@@ -45,6 +45,8 @@
 		"svelte"
 	],
 	"dependencies": {
+		"chart.js": "^4.5.0",
+		"chat-js": "^2.0.0",
 		"mongoose": "^8.18.0"
 	}
 }

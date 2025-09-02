@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
 
-  let activePage = "tasks"; // default view
+  let activePage = "tasks";
   let tasks = [];
   let newTask = "";
 
@@ -20,130 +20,146 @@
     newTask = "";
     loadTasks();
   }
- async function deleteTask(id) {
-    await fetch(`/api/tasks/${id}`, {
-      method: "DELETE"
-    });
+
+  async function deleteTask(id) {
+    await fetch(`/api/tasks/${id}`, { method: "DELETE" });
     loadTasks();
   }
+
   onMount(() => {
     loadTasks();
   });
 </script>
 
 <style>
-  /* Layout */
   .main {
-    flex: 1;
     padding: 2rem;
-    overflow-y: auto;
-    background: #f8fafc;
+    background: #f9fafb;
     min-height: 100vh;
+    font-family: "Inter", sans-serif;
   }
 
-  
-
-  /* Page Title */
   .page-title {
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #111827;
     margin-bottom: 1.5rem;
-    color: #1e293b;
-    animation: fadeInDown 0.6s ease;
   }
 
-  /* Task Input */
-  .task-input {
+  /* Input Card */
+  .task-input-card {
     display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+   
+    padding: 1rem 1.25rem;
+    border-radius: 0.75rem;
+    
   }
-  .task-input input {
+  .task-input-card input {
     flex: 1;
-    padding: 0.75rem;
+    padding: 0.85rem 1rem;
     border: 1px solid #cbd5e1;
     border-radius: 0.5rem;
+    font-size: 1rem;
+    background: #fff;
+    transition: border 0.2s, box-shadow 0.2s;
   }
-  .task-input button {
+  .task-input-card input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+  }
+  .task-input-card button {
     background: #2563eb;
     color: white;
-    padding: 0.75rem 1.25rem;
+    padding: 0.85rem 1.5rem;
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
+    font-weight: 600;
     transition: background 0.3s;
   }
-  .task-input button:hover {
+  .task-input-card button:hover {
     background: #1d4ed8;
   }
 
-  /* Task List */
-  .task-list {
-    list-style: none;
-    padding: 0;
+  /* Task Grid */
+  .task-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 per row */
+    gap: 1.25rem;
   }
-  .task-item {
-     display:flex;
-    justify-content:space-between;
+
+  .task-card {
     background: white;
-    margin-bottom: 0.5rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    transition: transform 0.2s;
+    padding: 1rem 1.25rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-  .task-item:hover {
-    transform: translateY(-2px);
+
+  .task-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   }
- .delete-btn {
+
+  .task-title {
+    font-size: 1rem;
+    color: #1f2937;
+    font-weight: 500;
+  }
+
+  .delete-btn {
     background: #ef4444;
     border: none;
     color: white;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.375rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 0.5rem;
     cursor: pointer;
-    transition: background 0.2s;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.2s;
   }
+
   .delete-btn:hover {
     background: #dc2626;
+    transform: scale(1.05);
   }
-  /* Animations */
-  @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-12px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+
+  .empty-state {
+    text-align: center;
+    color: #6b7280;
+    font-size: 1rem;
+    margin-top: 2rem;
   }
 </style>
 
-<!-- Main Content -->
 <div class="main">
-
-
   {#if activePage === "tasks"}
-    <h1 class="page-title">Tasks</h1>
-    <div class="task-input">
-      <input bind:value={newTask} placeholder="Enter a new task..." />
-      <button on:click={addTask}>Add</button>
-    </div>
-    <ul class="task-list">
-      {#each tasks as task}
-        <li class="task-item">
-        <span>{task.title} - {task.status}</span>
-        <button class="delete-btn" on:click={() => deleteTask(task._id)}>Delete</button>
-        </li>        
-      {/each}
-    </ul>
-  {/if}
+    <h1 class="page-title">📋 My Tasks</h1>
 
-  {#if activePage === "projects"}
-    <h1 class="page-title">Projects</h1>
-    <p style="color:#475569;">
-      Here you can manage your projects. (Extend this section later.)
-    </p>
+    <!-- Input Card -->
+    <div class="task-input-card">
+      <input bind:value={newTask} placeholder="✨ Add a new task..." />
+      <button on:click={addTask}>Add Task</button>
+    </div>
+
+    <!-- Task List -->
+    {#if tasks.length > 0}
+      <div class="task-grid">
+        {#each tasks as task}
+          <div class="task-card">
+            <span class="task-title">{task.title} - {task.status}</span>
+            <button class="delete-btn" on:click={() => deleteTask(task._id)}>Delete</button>
+          </div>
+        {/each}
+      </div>
+    {:else}
+      <p class="empty-state">No tasks yet. Add one above ⬆️</p>
+    {/if}
   {/if}
 </div>

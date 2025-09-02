@@ -8,7 +8,7 @@
   .layout {
     display: flex;
     height: 100vh;
-    background: #f9fafb;
+    background: white;
     font-family: system-ui, -apple-system, sans-serif;
   }
 
@@ -96,18 +96,30 @@
     margin-top: 0;
     margin-bottom: 1rem;
   }
+  .icon-img{
+    width:40px;
+    height:30px;
+    margin:5px;
+  }
+  .nav-icon{
+    display:flex;
+    margin-top:5px;
+  }
 </style>
 
 <div class="layout">
   <!-- Sidebar -->
   <div class="sidebar">
-   
-      <a href="/"> <h2>📊 My Dashboard</h2></a>
+    <a href="/">
+      <div class="nav-icon">
+        <img src="./dashboard.png" class="icon-img" />
+         <h2>  My Dashboard </h2>
+      </div>
+    </a>
     <nav class="nav">
       <a href="/tasks" class="nav-link {currentPath === '/tasks' ? 'active' : ''}">📝 Tasks</a>
       <a href="/projects" class="nav-link {currentPath === '/projects' ? 'active' : ''}">📂 Projects</a>
-      <a href="/settings" class="nav-link {currentPath === '/settings' ? 'active' : ''}">⚙️ Settings</a>
-    </nav>
+      </nav>
 
     <div class="sidebar-footer">
       © 2025 MyApp

@@ -22,10 +22,17 @@ export async function createTask(data) {
   return task.save();
 }
 
+/**
+ * Create a new task
+ * @param {{ name: string}} id
+ * @returns {Promise<any>}
+ */
 
-// export async function getTaskStats(projectId) {
-  // return Task.aggregate([
-  //   { $match: { projectId: new mongoose.Types.ObjectId(projectId) } },
-  //   { $group: { _id: "$status", count: { $sum: 1 } } }
-  // ]);
-// }
+export async function deleteTask(id) {
+  const task = await Task.findByIdAndDelete(id);
+  if (!task) {
+    console.log(task)
+    return;
+  }
+  return task;
+}

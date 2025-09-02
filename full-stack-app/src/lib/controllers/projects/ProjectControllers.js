@@ -23,13 +23,15 @@ export async function createProject(data) {
 }
 /**
  * Create a new task
- * @param {{ name: string}} projectId
+ * @param {{ name: string}} id
  * @returns {Promise<any>}
  */
 
-export async function deleteProject(projectId) {
-  console.log(projectId)
-  const project = Projects.deleteOne(projectId);
-  console.log(project)
+export async function deleteProject(id) {
+  const project = await Projects.findByIdAndDelete(id);
+  if (!project) {
+    console.log(project)
+    return;
+  }
   return project;
 }
